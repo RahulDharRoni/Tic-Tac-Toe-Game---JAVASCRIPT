@@ -31,11 +31,15 @@ boxes.forEach((box) => {
     count++;
     let winnerPlayer = winner();
 
-    if(count === 9 && !winnerPlayer){
-      
+    if (count === 9 && !winnerPlayer) {
+      gameOver();
     }
   });
 });
+const gameOver = () => {
+  Winning_message.innerHTML = `Game Over ! NO Winner 😒😒 ! Game Draw !`;
+  boxDisabled();
+};
 const boxEnabled = () => {
   for (let box of boxes) {
     box.disabled = false;
