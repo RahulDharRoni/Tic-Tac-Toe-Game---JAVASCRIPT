@@ -24,7 +24,7 @@ boxes.forEach((box) => {
       box.innerHTML = "O";
       players_turn0 = false;
     } else {
-      box.innerHTML = "X";
+      box.innerHTML = '<span style="color: black ; font-size: 8vmin;">X</span>';
       players_turn0 = true;
     }
     box.disabled = true;
@@ -51,10 +51,14 @@ const boxDisabled = () => {
     box.disabled = true;
   }
 };
-const showWinner = (winner) => {
-  Winning_message.innerHTML = `Congratulations! Winner is ${winner}`;
-  msgContainer.classList.remove("hide");
+const showWinner = (winners, winnerBoxes) => {
+  Winning_message.innerHTML = `Congratulations! Winner is ${winners}`;
   boxDisabled();
+
+  winnerBoxes.forEach((index) => {
+    boxes[index].style.backgroundColor = "#00D26A"; // Change background color
+    console.log(boxes[index]);
+  });
 };
 
 function winner() {
@@ -66,7 +70,7 @@ function winner() {
     if (box1 != "" && box2 != "" && box3 != "") {
       if (box1 === box2 && box2 === box3) {
         console.log("winner", box1);
-        showWinner(box1);
+        showWinner(box1, pattern);
       }
     }
   }
@@ -76,6 +80,11 @@ const reset = () => {
   players_turn0 = true;
   count = 0;
   boxEnabled();
+  boxes.forEach((box) => {
+    box.style.backgroundColor = ""; // Reset background color
+  });
+
+  Winning_message.innerHTML = "";
 };
 
 newGame.addEventListener("click", reset);
